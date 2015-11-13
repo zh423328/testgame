@@ -41,3 +41,14 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+##folder
+Debug
+Release
+
+##file
+*.log
+*.obj
+*.pdb
+*.
+
