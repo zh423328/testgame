@@ -11,7 +11,7 @@ local flist = {
 		{name = "launcher/dark.png", code = "110d4a55e7579b169a0b0718ce15390b", size = 667},
 		{name = "launcher/light.png", code = "c70352c2071d84f03de7ee12986f9d62", size = 678},
 		{name = "lib/framework_precompiled.zip", code = "1b9527bb3f5a141e6d66fd4408f958ff", size = 207894},
-		{name = "lib/game.zip", code = "bbb41bbedab23f7d7995e94ce9532fcc", size = 8556},
+		{name = "lib/game.zip", code = "e3dec8c78f98aa9c648b1998fdc06fb6", size = 8556},
 	},
 }
 

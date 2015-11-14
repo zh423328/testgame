@@ -14,6 +14,7 @@ end
 
 
 CCFileUtils:sharedFileUtils():purgeCachedEntries();
-CCLuaLoadChunksFromZIP("lib/launcher.zip")
+--加载launcher.zip--
+--CCLuaLoadChunksFromZIP("lib/launcher.zip")
 package.loaded["launcher.launcher"] = nil
 require("launcher.launcher")

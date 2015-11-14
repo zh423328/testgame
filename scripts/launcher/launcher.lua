@@ -8,7 +8,7 @@ local function enter_game()
     CCLuaLoadChunksFromZIP("lib/framework_precompiled.zip")
 
     --加载gamezip.zip--
-    CCLuaLoadChunksFromZIP("lib/game.zip")
+    --CCLuaLoadChunksFromZIP("lib/game.zip")
 	Game = require("game.game")
 	Game.startup()
 end
@@ -52,6 +52,14 @@ function LauncherScene:ctor()
     self._progressBar:setPosition(progressBarPt)
     self:addChild(self._progressBar)
 
+    -- local number = CMyTest:MyAdd(1,2);
+    -- print("..........."..number);
+
+    -- local num = CMyTest:create();
+    -- num:SetValueA(1);
+    -- num:SetValueB(2);
+    -- print("XXXXXX"..num:Add());
+    -- CMyTest:Delete(num);
     --注释平台初始化--
     --enter_game()
     --   Launcher.performWithDelayGlobal(function()
