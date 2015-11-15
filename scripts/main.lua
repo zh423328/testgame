@@ -13,6 +13,7 @@ end
 --require("update")
 
 
+--清楚缓存--
 CCFileUtils:sharedFileUtils():purgeCachedEntries();
 --加载launcher.zip--
 --CCLuaLoadChunksFromZIP("lib/launcher.zip")

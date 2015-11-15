@@ -124,7 +124,7 @@ elseif Launcher.platform == "ios" then
 end
 
 --是否需要更新
-Launcher.needUpdate = true
+Launcher.needUpdate = false
 
 --工作类型--
 Launcher.workerType  =  { UNCOMPRESS = 0, UPDATE = 1}

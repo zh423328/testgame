@@ -7,7 +7,7 @@ local MyApp = class("MyApp", cc.mvc.AppBase)
 
 function MyApp:ctor()
     MyApp.super.ctor(self,"MyApp","game.app");
-    print(self.packageRoot);
+    --print(self.packageRoot);
 end
 
 function MyApp:run()
@@ -15,7 +15,7 @@ function MyApp:run()
 	--local path = device.writablePath.."/upd/res/";
 	--添加搜索路径--
 	--CCFileUtils:sharedFileUtils():addSearchPath(path);
-	print(self.packageRoot);
+	--print(self.packageRoot);
     self:enterScene("MainScene")
 end
 
