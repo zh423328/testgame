@@ -29,7 +29,7 @@ function LauncherScene:ctor()
         CCFileUtils:sharedFileUtils():addSearchPath("res/")
     end
 
-	self._textLabel = CCLabelTTF:create(STR_LCHER_UNCOMPRESS_TEXT, "Arial", 20)
+	self._textLabel = CCLabelTTF:create(STR_LCHER_HAS_UPDATE, "Arial", 20)
 	self._textLabel:setColor(ccc3(255, 255, 255))
 	self._textLabel:setPosition(Launcher.cx, Launcher.cy - 60)
 	self:addChild(self._textLabel)
@@ -100,6 +100,8 @@ function LauncherScene:ctor()
                 table.insert(self.uncompressfilelist, filelist[k].name);
             end
             --加入flist
+            table.insert(self.uncompressfilelist,"flist");
+            self.uncompressTotal = self.uncompressTotal + 1;
             self:UncompressRes();
         end
     end
@@ -108,6 +110,7 @@ end
 function LauncherScene:UncompressRes()
     --解压相关文件--
     --先删除里面所有内容--
+     self._textLabel:setString(STR_LCHER_UNCOMPRESS_TEXT);
     Launcher.removePath(self._path)
 
     --创建资源目录--
@@ -124,6 +127,39 @@ function LauncherScene:UncompressRes()
 end
 
 
+function LauncherScene:WriteFlist(npath,opath)
+    local buf = "local flist = {\n";
+    buf = buf.."\tappVersion = "..self.appfileList.appVersion..",\n";
+    buf = buf.."\tversion = \""..self.appfileList.version.."\",\n";
+    buf = buf.."\tdirPaths = {\n";
+    
+    for i,v in ipairs(self.appfileList.dirPaths) do
+        buf = buf.."\t\t{name = \""..v.name.."\"},\n";
+    end
+    
+    buf = buf.."\t},\n";
+    buf = buf.."\tfileInfoList = {\n";
+    for i,v in ipairs(self.appfileList.fileInfoList) do
+      buf = buf.."\t\t{name = \""..v.name.."\", code = \""
+      local ms = v.code or ""
+      buf = buf..ms.."\", size = ".. v.size .."},\n"
+    end
+    
+    buf = buf.."\t},\n";
+    buf = buf.."}\n\n";
+    buf = buf.."return flist";
+    Launcher.writefile(npath..Launcher.updateFilePostfix, buf);
+    
+    --rename--
+    local dataRead=  Launcher.readFile(npath..Launcher.updateFilePostfix);
+    if dataRead then
+      --写入和删除--
+      Launcher.writefile(npath,dataRead);
+      
+      --删除--
+      Launcher.removePath(npath..Launcher.updateFilePostfix);
+    end
+end
 --定时器
 function LauncherScene:UnCompressFile()
     -- body
@@ -138,14 +174,21 @@ function LauncherScene:UnCompressFile()
             local newpath = self._path..filename;
             local oldpath = CCFileUtils:sharedFileUtils():fullPathForFilename(filename);
 
-            --不存在才拷贝，存在则去更新到最新--
-            if not Launcher.fileExists(newpath) then
-                local filedata = Launcher.readFile(oldpath);
-                if filedata then
-                    --todo
-                    Launcher.writefile(newpath, filedata)
-                end 
+            if filename == "flist" then
+                 if not Launcher.fileExists(newpath) then
+                    self:WriteFlist(newpath,oldpath);
+                 end 
+            else
+                --不存在才拷贝，存在则去更新到最新--
+                if not Launcher.fileExists(newpath) then
+                    local filedata = Launcher.readFile(oldpath);
+                    if filedata then
+                        --todo
+                        Launcher.writefile(newpath, filedata)
+                    end 
+                end
             end
+
 
 
             local downloadPro = (self.uncompressnum  * 100) / (self.uncompressTotal)

@@ -91,7 +91,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCLOG("LOAD LUA FILE: %s", path.c_str());
     CCLOG("------------------------------------------------");
     pEngine->executeScriptFile(path.c_str());
-
+	  
     return true;
 }
 

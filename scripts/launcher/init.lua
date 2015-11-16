@@ -170,8 +170,7 @@ function lcher_class(classname, super)
             local instance = cls.__create(...)
             -- copy fields from class to native object
             for k,v in pairs(cls) do
-              print(k,v);
-              instance[k] = v 
+                instance[k] = v 
             end
             instance.class = cls
             instance:ctor(...)
